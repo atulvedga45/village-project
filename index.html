@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Kankradi-Dongripada</title>
+
+    <!-- FontAwesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- jsPDF Library for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+    <link rel="icon" href="av_circle_logo_blue.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="notification" id="notification"></div>
+
+    <!-- LOGIN PAGE -->
+    <div id="loginPage">
+      <div class="login-box slide-in" id="mainLoginBox">
+        <div class="logo">AV</div>
+        <h3 style="margin-bottom: 20px">Kankradi-Dongripada</h3>
+
+        <div class="input-group">
+          <input type="text" id="username" placeholder="User Name" />
+        </div>
+        <div class="input-group">
+          <input type="text" id="village" placeholder="Village Name (Only Kankradi user)" />
+        </div>
+        <div class="input-group">
+          <input type="email" id="emailId" placeholder="Email ID" />
+        </div>
+
+        <button class="otp-btn" id="getOtpBtn" onclick="sendMainOTP()">
+          Get OTP
+        </button>
+
+        <div class="otp-section" id="mainOtpSection">
+          <div class="code-input-group">
+            <!-- 4 Digit OTP Inputs -->
+            <input
+              type="text"
+              class="code-input"
+              maxlength="1"
+              id="mainOtp1"
+              oninput="moveToNext(this, 'mainOtp2')"
+            />
+            <input
+              type="text"
+              class="code-input"
+              maxlength="1"
+              id="mainOtp2"
+              oninput="moveToNext(this, 'mainOtp3')"
+            />
+            <input
+              type="text"
+              class="code-input"
+              maxlength="1"
+              id="mainOtp3"
+              oninput="moveToNext(this, 'mainOtp4')"
+            />
+            <input
+              type="text"
+              class="code-input"
+              maxlength="1"
+              id="mainOtp4"
+              oninput="moveToNext(this, 'mainLoginBtn')"
+            />
+          </div>
+          <button class="login-btn" id="mainLoginBtn" onclick="verifyMainOTP()">
+            Login
+          </button>
+        </div>
+
+        <button
+          class="refresh-btn"
+          onclick="refreshLogin()"
+          style="margin-top: 10px"
+        >
+          Refresh
+        </button>
+        <button class="code-login-btn" onclick="showCodeLoginScreen()">
+          Login with Code
+        </button>
+        <div class="small-text">
+          Don't know password?
+          <a href="https://www.instagram.com/cr.atul_vedga_45" target="_blank"
+            >Ask @vedgaatul</a
+          >
+        </div>
+      </div>
+
+      <!-- Login With Code Box -->
+      <div class="login-box hidden" id="codeLoginBox">
+        <div class="logo">AV</div>
+        <h3 style="margin-bottom: 10px">Login with Code</h3>
+        <p style="font-size: 12px; opacity: 0.8; margin-bottom: 15px">
+          Enter your 6-digit access code
+        </p>
+
+        <div class="code-input-group" style="justify-content: center">
+          <!-- 6 Digit Code Inputs - TYPE="PASSWORD" to hide characters -->
+          <input
+            type="password"
+            class="code-input"
+            maxlength="1"
+            id="codeOtp1"
+            oninput="moveToNext(this, 'codeOtp2')"
+          />
+          <input
+            type="password"
+            class="code-input"
+            maxlength="1"
+            id="codeOtp2"
+            oninput="moveToNext(this, 'codeOtp3')"
+          />
+          <input
+            type="password"
+            class="code-input"
+            maxlength="1"
+            id="codeOtp3"
+            oninput="moveToNext(this, 'codeOtp4')"
+          />
+          <input
+            type="password"
+            class="code-input"
+            maxlength="1"
+            id="codeOtp4"
+            oninput="moveToNext(this, 'codeOtp5')"
+          />
+          <input
+            type="password"
+            class="code-input"
+            maxlength="1"
+            id="codeOtp5"
+            oninput="moveToNext(this, 'codeOtp6')"
+          />
+          <input
+            type="password"
+            class="code-input"
+            maxlength="1"
+            id="codeOtp6"
+            oninput="moveToNext(this, 'submitCodeBtn')"
+          />
+        </div>
+        <button class="login-btn" id="submitCodeBtn" onclick="verifyCodeOTP()">
+          Submit
+        </button>
+
+        <button
+          class="refresh-btn"
+          onclick="hideCodeLoginScreen()"
+          style="margin-top: 10px"
+        >
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN PAGE -->
+    <div id="mainPage">
+      <div class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Main</div>
+          <button onclick="showHome()"><i class="fas fa-home"></i> Home</button>
+        </div>
+        <div
+          class="sidebar-section"
+          id="restrictedSection"
+          style="display: none"
+        >
+          <div class="sidebar-section-title">Data Entry</div>
+          <button onclick="openFala('Gav dev Falni')">
+            <i class="fas fa-om"></i> गाव देव फाळणी
+          </button>
+          <button onclick="openFala('Mahit Fala')">
+            <i class="fas fa-file-alt"></i> महित फाळणी
+          </button>
+          <button onclick="openFala('Ganpati Vargani')">
+            <i class="fas fa-pray"></i> गणपती वर्गणी
+          </button>
+          <button onclick="openFala('Navratri Vargani')">
+            <i class="fas fa-music"></i> नवरात्री वर्गणी
+          </button>
+          <button onclick="openFala('Holi Vargani')">
+            <i class="fas fa-fire"></i> होळी वर्गणी
+          </button>
+          <button onclick="showTotal()">
+            <i class="fas fa-calculator"></i> Calculate all Amount
+          </button>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Tools</div>
+          <button onclick="showNotepad()">
+            <i class="fas fa-sticky-note"></i> Note Pad
+          </button>
+          <button onclick="showCalculator()">
+            <i class="fas fa-calculator"></i> Calculator
+          </button>
+          <button onclick="showGames()">
+            <i class="fas fa-gamepad"></i> Play Games
+          </button>
+          <button onclick="showSettings()">
+            <i class="fas fa-cog"></i> Settings
+          </button>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Support</div>
+          <button onclick="showChat()">
+            <i class="fas fa-comments"></i> Chat with atul
+          </button>
+          <button id="sidebarLoginBtn" onclick="showUserLoginForm()">
+            <i class="fas fa-sign-in-alt"></i> Login
+          </button>
+          <button
+            id="sidebarLogoutBtn"
+            class="logout-btn"
+            onclick="logoutUser()"
+            style="display: none"
+          >
+            <i class="fas fa-sign-out-alt"></i> Log Out
+          </button>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Data</div>
+          <button onclick="showDataProcessMenu()">
+            <i class="fas fa-file-pdf"></i> Data Process
+          </button>
+        </div>
+        <!-- NEW GALLERY SECTION ADDED HERE -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Media</div>
+          <button onclick="showGallery()">
+            <i class="fas fa-images"></i> Image Gallery
+          </button>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Theme</div>
+          <button onclick="setDark()">
+            <i class="fas fa-moon"></i> Dark Mode
+          </button>
+          <button onclick="setLight()">
+            <i class="fas fa-sun"></i> Light Mode
+          </button>
+        </div>
+      </div>
+      <div class="content" id="contentArea"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
