@@ -71,7 +71,10 @@
         }
         let validVillages = [
           "kankradi",
+          "Kankradi",
           "KANKRADI",
+          "dongripada",
+          "Dongripada",
           "DONGRIPADA",
           "SHIVANI",
           "shivani",
@@ -82,11 +85,16 @@
           "Narpad",
           "narpad",
           "NARPAD",
-          "dongripada",
           "lashkari",
           "laskari",
+          "Lashkari",
+          "Laskari",
           "kankradi nandhare",
+          "Kankradi Nandhare",
+          "KANKRADI NANDHARE",
           "kankradi dongripada",
+          "Kankradi Dongripada",
+          "KANKRADI DONGRIPADA",
         ];
         if (!village || !validVillages.includes(village)) {
           showNotification("Wrong village name");
@@ -161,8 +169,8 @@
           return;
         }
 
-        // Password is "a2024s"
-        if (code === "A2024S","rupesh","Rupesh","Kunal.","kunal.") {
+        // Password is "A2024S"
+        if (code === "A2024S") {
           showNotification("Login Successful", "#2ed573");
           setTimeout(() => {
             document.getElementById("loginPage").style.display = "none";
@@ -223,7 +231,7 @@
       function showUserLoginForm() {
         stopGames();
         document.getElementById("contentArea").innerHTML =
-          `<div class="sticky-header"><h2 class="big-title">User Login</h2></div><div class="form-container fade-in" style="max-width: 400px; margin: 0 auto;"><p style="color:#666; text-align:center; margin-bottom:15px;">Login to see more option or data</p><div class="dynamic-input"><input type="text" id="userLoginName" placeholder="User Name"></div><div class="dynamic-input"><input type="email" id="userLoginEmail" placeholder="Email ID"></div><div class="dynamic-input"><input type="password" id="userLoginPass" placeholder="Enter Password"></div><button onclick="validateUserLogin()">Submit</button></div>`;
+          `<div class="sticky-header"><h2 class="big-title">User Login</h2></div><div class="form-container fade-in" style="max-width: 400px; margin: 0 auto;"><p style="color:#666; text-align:center; margin-bottom:15px;">Login to see more option or data</p><div class="dynamic-input"><input type="text" id="userLoginName" placeholder="User Name"></div><div class="dynamic-input"><input type="email" id="userLoginEmail" placeholder="Email ID"></div><div class="dynamic-input"><input type="password" id="userLoginPass" placeholder="Enter Website Password "></div><button onclick="validateUserLogin()">Submit</button></div>`;
       }
       function validateUserLogin() {
         let name = document.getElementById("userLoginName").value.trim();
@@ -233,7 +241,7 @@
           showNotification("Please fill all information");
           return;
         }
-        if (pass !== "atulsvedga07092024","kunalvedga21042004") {
+        if (pass !== "atulsvedga07092024") {
           showNotification("Wrong password");
           return;
         }
@@ -312,10 +320,10 @@
         <div class="card card-animate" style="background-image:url('red flage.jpg');" onclick="showProfile('Aamdar')">
         <div class="card-content"><h3>आमदार</h3><p>Vinod Nikole ( विनोद निकोले )</p></div><img src="nikole.jpg"></div>
 
-<div class="card card-animate" style="background-image:url('Black and Ivory Modern Name YouTube Channel Art (1).png');" onclick="showProfile('Sarpanch')">
+<div class="card card-animate" style="background-image:url('sap.png');" onclick="showProfile('Sarpanch')">
         <div class="card-content"><h3>सरपंच</h3><p>Rupali Kokera ( रुपाली कोकरे )</p></div><img src="istockphoto-522855255-612x612.jpg"></div>
 
-<div class="card card-animate" style="background-image:url('Black and Ivory Modern Name YouTube Channel Art.png');" onclick="showProfile('Upsarpanch')">
+<div class="card card-animate" style="background-image:url('upsarr.png');" onclick="showProfile('Upsarpanch')">
         <div class="card-content"><h3>उपसरपंच</h3><p>Rupesh Fesharda ( रुपेश फेसरडा )</p></div><img src="Media (1).jpg"></div>
 
 <div class="card card-animate" style="background-image:url('Black and Ivory Modern Name YouTube Channel Art (4).png');">
@@ -705,6 +713,156 @@
         }
       }
 
+
+      /* ===== BIRTH TIMER LOGIC ===== */
+let birthInterval = null; // Variable for Birth Timer Interval
+let prevSeconds = -1; // Helper for animation
+
+
+function showBirthTimer() {
+  stopGames(); 
+  if (birthInterval) clearInterval(birthInterval);
+
+  document.getElementById("contentArea").innerHTML = `
+    <div class="birth-page-wrapper">
+      <div class="birth-orb birth-orb-1"></div>
+      <div class="birth-orb birth-orb-2"></div>
+      
+      <!-- PAGE 1: Input Date -->
+      <div class="birth-container" id="birthPage1">
+        <h1>Enter Your Birth Date</h1>
+        <input type="date" id="birthDateInput" />
+        <br />
+        <button class="btn-neon primary" onclick="startBirthTimer()">Start Timer</button>
+        
+        <!-- NEW GO BACK BUTTON ADDED HERE -->
+        <button class="btn-neon secondary" onclick="showHome()" style="margin-top: 15px;">Go Back</button>
+      </div>
+
+      <!-- PAGE 2: Timer Only (Hidden by default) -->
+      <div class="birth-container hidden" id="birthPage2">
+        <h1>Your Life Timer</h1>
+
+        <div class="birth-timer">
+          <div class="birth-box">
+            <div class="birth-number" id="years">0</div>
+            <div class="birth-label">Years</div>
+          </div>
+          <div class="birth-box">
+            <div class="birth-number" id="months">0</div>
+            <div class="birth-label">Months</div>
+          </div>
+          <div class="birth-box">
+            <div class="birth-number" id="days">0</div>
+            <div class="birth-label">Days</div>
+          </div>
+          <div class="birth-box">
+            <div class="birth-number" id="hours">0</div>
+            <div class="birth-label">Hours</div>
+          </div>
+          <div class="birth-box">
+            <div class="birth-number" id="minutes">0</div>
+            <div class="birth-label">Minutes</div>
+          </div>
+          <div class="birth-box">
+            <div class="birth-number" id="seconds">0</div>
+            <div class="birth-label">Seconds</div>
+          </div>
+        </div>
+
+        <button class="btn-neon secondary" onclick="resetBirthView()">Change Date</button>
+      </div>
+    </div>
+  `;
+}
+
+
+function startBirthTimer() {
+  const input = document.getElementById("birthDateInput").value;
+  if (!input) {
+    showNotification("Please select a date first!");
+    return;
+  }
+
+  const birth = new Date(input);
+  const now = new Date();
+
+  if (birth > now) {
+    showNotification("Birth date cannot be in the future!");
+    return;
+  }
+
+  // Switch Pages: Hide Page 1, Show Page 2
+  const page1 = document.getElementById("birthPage1");
+  const page2 = document.getElementById("birthPage2");
+
+  page1.classList.add("hidden");
+  page2.classList.remove("hidden");
+
+  // Restart animation for page 2
+  page2.style.animation = "none";
+  page2.offsetHeight; /* trigger reflow */
+  page2.style.animation = "fadeInUpBirth 0.8s ease-out forwards";
+
+  if (birthInterval) clearInterval(birthInterval);
+
+  updateBirthTimer(birth);
+  birthInterval = setInterval(() => updateBirthTimer(birth), 1000);
+}
+
+function updateBirthTimer(birth) {
+  const now = new Date();
+  let diff = now - birth;
+
+  const totalSeconds = Math.floor(diff / 1000);
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  const totalHours = Math.floor(totalMinutes / 60);
+  const totalDays = Math.floor(totalHours / 24);
+
+  const years = Math.floor(totalDays / 365.25);
+  const months = Math.floor((totalDays % 365.25) / 30.44);
+  const days = Math.floor(totalDays - years * 365.25 - months * 30.44);
+
+  // Update Text
+  const yearsEl = document.getElementById("years");
+  const monthsEl = document.getElementById("months");
+  const daysEl = document.getElementById("days");
+  const hoursEl = document.getElementById("hours");
+  const minutesEl = document.getElementById("minutes");
+  const secondsEl = document.getElementById("seconds");
+
+  yearsEl.innerText = years;
+  monthsEl.innerText = months;
+  daysEl.innerText = days;
+  hoursEl.innerText = totalHours % 24;
+  minutesEl.innerText = totalMinutes % 60;
+  secondsEl.innerText = totalSeconds % 60;
+
+  // Add pop animation to seconds
+  if (totalSeconds % 60 !== prevSeconds) {
+    secondsEl.classList.remove("pop");
+    void secondsEl.offsetWidth; // trigger reflow
+    secondsEl.classList.add("pop");
+    prevSeconds = totalSeconds % 60;
+  }
+}
+
+function resetBirthView() {
+  if (birthInterval) clearInterval(birthInterval);
+  
+  const page1 = document.getElementById("birthPage1");
+  const page2 = document.getElementById("birthPage2");
+
+  page2.classList.add("hidden");
+  page1.classList.remove("hidden");
+
+  // Restart animation for page 1
+  page1.style.animation = "none";
+  page1.offsetHeight; /* trigger reflow */
+  page1.style.animation = "fadeInUpBirth 0.8s ease-out forwards";
+}
+
+
       /* ===== SETTINGS ===== */
       function showSettings() {
         stopGames();
@@ -723,7 +881,11 @@
 
 The website was created and developed by Atul Vedga, a Software Engineering student, with the aim of providing a reliable, secure, and user-friendly digital solution for the village.<br><br>
 
-If your village or organization needs a similar website, or if you would like a personal website developed, you can contact Atul Vedga for professional web development services.</p></div>`;
+If your village or organization needs a similar website, or if you would like a personal website developed, you can contact Atul Vedga for professional web development services.<br><br>
+  <b>Releted Chat:- <br> In this chat box, you are not speaking with a real person—it’s an AI tool.
+So don’t expect it to ask different questions like a human would.
+It responds based on its programming and the information it has.
+Don’t take its responses personally—it’s just a robot providing answers.</b> </p></div>`;
       }
       function showCreatorInfo() {
         document.getElementById("contentArea").innerHTML =
@@ -900,10 +1062,10 @@ My self Atul Vedga. I am from Palghar district in dahanu taluka. I Training in T
       };
       const chatResponses = {
         greetings: [
-          "Hey there! How's it going?",
+          "Hey!",
           "Hi! What's on your mind?",
           "Hello! Great to hear from you!",
-          "Hey! How can I help you today?",
+          "Hello! How can I help you today?",
         ],
         howAreYou: [
           "I'm doing well, thanks for asking! How about you?",
@@ -938,7 +1100,10 @@ My self Atul Vedga. I am from Palghar district in dahanu taluka. I Training in T
                 <div class="user-info"><div class="username">Atul Vedga</div><div class="status" id="userStatus">online</div></div>
               </div>
               <div class="action-buttons">
-                <div class="action-btn menu" id="menuBtn"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" /></svg></div>
+                              <div class="action-btn call" id="callBtn"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg></div>
+                                <div class="action-btn video" id="videoBtn"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg></div>
+
+                              <div class="action-btn menu" id="menuBtn"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" /></svg></div>
                 <div class="dropdown-menu" id="dropdownMenu"><div class="dropdown-item" id="clearChat"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg><span>Clear Chat</span></div></div>
               </div>
             </div>
@@ -952,7 +1117,8 @@ My self Atul Vedga. I am from Palghar district in dahanu taluka. I Training in T
             </div>
           </div>
         </div>
-        <div class="chat-popup-overlay" id="chatPopupOverlay"><div class="chat-popup"><div class="popup-icon warning" id="chatPopupIcon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg></div><div class="popup-title" id="chatPopupTitle">Permission Denied</div><div class="popup-message" id="chatPopupMessage">You don't have permission.</div><button class="popup-btn" id="chatPopupBtn">Got it</button></div></div>`;
+        <div class="chat-popup-overlay" id="chatPopupOverlay"><div class="chat-popup"><div class="popup-icon warning" id="chatPopupIcon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg></div><div class="popup-title" id="chatPopupTitle">Permission Denied</div><div class="popup-message" id="chatPopupMessage">You don't have permission to call.</div><button class="popup-btn" id="chatPopupBtn">Got it</button></div></div>`;
+
 
         initChatLogic();
       }
@@ -970,12 +1136,19 @@ My self Atul Vedga. I am from Palghar district in dahanu taluka. I Training in T
         const emojiGrid = document.getElementById("emojiGrid");
         const clearChatBtn = document.getElementById("clearChat");
         const quickReplies = document.getElementById("quickReplies");
-        const chatPopupOverlay = document.getElementById("chatPopupOverlay");
+         const chatPopupOverlay = document.getElementById("chatPopupOverlay");
         const chatPopupBtn = document.getElementById("chatPopupBtn");
+        const callBtn = document.getElementById("callBtn");
+        const videoBtn = document.getElementById("videoBtn");
+
 
          let currentEmojiCategory = "faces";
 
 
+        // Added logic to handle Call/Video buttons to show the popup
+        const showPopup = () => chatPopupOverlay.classList.add("active");
+        if (callBtn) callBtn.addEventListener("click", showPopup);
+        if (videoBtn) videoBtn.addEventListener("click", showPopup);
 
         function renderEmojis(category) {
           currentEmojiCategory = category;
@@ -1067,12 +1240,15 @@ My self Atul Vedga. I am from Palghar district in dahanu taluka. I Training in T
         }
 
 
-
-        function getResponse(userMessage) {
+                function getResponse(userMessage) {
           const lowerMsg = userMessage.toLowerCase().trim();
+          
+          // Check if the message contains only emojis
           if (isEmojiOnly(userMessage)) {
-            return userMessage;
+            // Double the emojis: 1 becomes 2, 3 becomes 6, etc.
+            return userMessage.repeat(2);
           }
+          
           if (lowerMsg.includes("password")) {
             return chatResponses.password;
           }
@@ -1093,6 +1269,7 @@ My self Atul Vedga. I am from Palghar district in dahanu taluka. I Training in T
           }
           return getRandomItem(chatResponses.fallback);
         }
+
 
         function handleSend() {
           const message = chatInput.value.trim();
@@ -1180,6 +1357,66 @@ My self Atul Vedga. I am from Palghar district in dahanu taluka. I Training in T
           "2038",
           "2039",
           "2040",
+          "2041",
+          "2042",
+          "2043",
+          "2044",
+          "2045",
+          "2046",
+          "2047",
+          "2048",
+          "2049",
+          "2050",
+          "2051",
+          "2052",
+          "2053",
+          "2054",
+          "2055",
+          "2056",
+          "2057",
+          "2058",
+          "2059",
+          "2060",
+          "2061",
+          "2062",
+          "2063",
+          "2064",
+          "2065",
+          "2066",
+          "2067",
+          "2068",
+          "2069",
+          "2070",
+          "2071",
+          "2072",
+          "2073",
+          "2074",
+          "2075",
+          "2076",
+          "2077",
+          "2078",
+          "2079",
+          "2080",
+          "2081",
+          "2082",
+          "2083",
+          "2084",
+          "2085",
+          "2086",
+          "2087",
+          "2088",
+          "2089",
+          "2090",
+          "2091",
+          "2092",
+          "2093",
+          "2094",
+          "2095",
+          "2096",
+          "2097",
+          "2098",
+          "2099",
+          "2100",
         ];
         let yearOptions = years
           .map((y) => `<option value="${y}">${y}</option>`)
