@@ -822,7 +822,7 @@
       /* Responsive gallery */
       @media (max-width: 600px) {
         .gallery-item {
-          flex: 1 1 90%; /* 1 item per row on very small screens */
+          flex: 1 1 90%; 
           max-width: 300px;
           height: 200px;
         }
@@ -994,6 +994,8 @@
       .status-typing {
         color: var(--accent-gold);
       }
+      
+
       .action-buttons {
         display: flex;
         gap: 6px;
@@ -1021,9 +1023,7 @@
       }
       .action-btn.video:hover svg {
         stroke: var(--accent-coral);
-      } 
-
-      
+      }
 
       .dropdown-menu {
         position: absolute;
@@ -1069,7 +1069,122 @@
         height: 1px;
         background: rgba(255, 255, 255, 0.08);
         margin: 6px 0;
-      } 
+      }
+
+
+       .send-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--sent-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0, 212, 170, 0.25);
+        flex-shrink: 0;
+        border: none;
+      }
+      .send-btn svg {
+        width: 22px;
+        height: 22px;
+        stroke: #0a0f1a;
+        stroke-width: 2.5;
+        margin-left: 2px;
+      }
+      .chat-popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(10px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      .chat-popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .chat-popup {
+        background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+        border-radius: 24px;
+        padding: 32px;
+        max-width: 350px;
+        width: 90%;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .popup-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 22px;
+      }
+      .popup-icon.warning {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 107, 107, 0.2),
+          rgba(255, 107, 107, 0.08)
+        );
+      }
+      .popup-icon svg {
+        width: 36px;
+        height: 36px;
+      }
+      .popup-icon.warning svg {
+        stroke: var(--accent-coral);
+      }
+      .popup-title {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 10px;
+
+      }
+
+      .popup-message {
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 26px;
+      }
+      .chat-popup .popup-btn {
+        background: linear-gradient(
+          135deg,
+          var(--accent-teal) 0%,
+          #00a896 100%
+        );
+        color: #0a0f1a;
+        border: none;
+        padding: 14px 36px;
+        border-radius: 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .date-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 12px 0 8px;
+      }
+      .date-divider span {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 6px 16px;
+        border-radius: 10px;
+        font-size: 11px;
+        color: var(--text-secondary);
+      }
 
      
  
@@ -2150,6 +2265,219 @@
         transform: translateY(-3px);
         box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
       }
+
+
+/* ===== BIRTH TIMER STYLES ===== */
+.hidden {
+  display: none !important;
+}
+
+.birth-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  /* background: transparent; */
+  /* background-color: #00ffff3d; */
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.birth-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: 0;
+  animation: floatOrb 10s infinite ease-in-out;
+}
+
+.birth-orb-1 {
+  width: 300px;
+  height: 300px;
+  /* background: #ff00ff; */
+  top: -50px;
+  left: -50px;
+  animation-delay: 0s;
+}
+
+.birth-orb-2 {
+  width: 400px;
+  height: 400px;
+  /* background: #00ffff; */
+  bottom: -100px;
+  right: -100px;
+  animation-delay: -5s;
+}
+
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, 50px); }
+}
+
+.birth-container {
+  position: relative;
+  z-index: 1;
+  /* Changed from light transparent to dark semi-transparent black */
+  background: rgba(0, 0, 0, 0.75); 
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); /* Adjusted shadow for dark bg */
+  text-align: center;
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeInUpBirth 0.8s ease-out forwards;
+  color: white;
+}
+
+
+@keyframes fadeInUpBirth {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.birth-container h1 {
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ff00ff, #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+
+
+.birth-container input[type="date"] {
+  padding: 14px;
+  width: 100%;
+  max-width: 280px;
+  border-radius: 12px;
+  border: 2px solid rgba(148, 146, 146, 0.2);
+  outline: none;
+  font-size: 16px;
+  /* Changed to a slightly lighter dark for contrast against the container */
+  background: rgba(255, 255, 255, 0.1); 
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.birth-container input[type="date"]:hover,
+.birth-container input[type="date"]:focus {
+  border-color: #00ffff;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.birth-container input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.birth-container .btn-neon {
+  padding: 14px 35px;
+  margin-top: 25px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-neon.primary {
+  background: linear-gradient(45deg, #ff00ff, #ff4da6);
+  color: #fff;
+  box-shadow: 0 5px 20px rgba(255, 0, 255, 0.4);
+}
+
+.btn-neon.primary:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(255, 0, 255, 0.6);
+}
+
+.btn-neon.secondary {
+  background: linear-gradient(45deg, #00ffff, #00b8ff);
+  color: #000;
+  box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+}
+
+.btn-neon.secondary:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
+}
+
+.birth-timer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.birth-box {
+  background: rgb(255, 255, 255);
+  backdrop-filter: blur(5px);
+  padding: 15px 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.birth-box:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(255, 0, 255, 0.4);
+  box-shadow: 0 8px 25px rgba(255, 0, 255, 0.2);
+}
+
+.birth-number {
+  font-size: 2.2rem;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #000000, #000000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(43, 43, 43, 0.781);
+  transition: transform 0.3s ease;
+}
+
+.birth-number.pop {
+  animation: numberPopBirth 0.3s ease;
+}
+
+@keyframes numberPopBirth {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); color: #00ffff; }
+  100% { transform: scale(1); }
+}
+
+.birth-label {
+  font-size: 0.75rem;
+  margin-top: 5px;
+  color: #252525;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 
       /* ===== RESPONSIVE ===== */
       @media (max-width: 900px) {
