@@ -1,12 +1,14 @@
 <!doctype html>
 <html lang="en">
+
   <head>
+
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>Kankradi-Dongripada</title>
+    <title>Kankradi-Dongripada(Dahanu)</title>
 
     <!-- FontAwesome for Icons -->
     <link
@@ -19,9 +21,11 @@
 
     <link rel="icon" href="av_circle_logo_blue.png" />
     <link rel="stylesheet" href="style.css" />
+    
   </head>
 
   <body>
+
     <div class="notification" id="notification"></div>
 
     <!-- LOGIN PAGE -->
@@ -34,7 +38,11 @@
           <input type="text" id="username" placeholder="User Name" />
         </div>
         <div class="input-group">
-          <input type="text" id="village" placeholder="Village Name (Only Kankradi user)" />
+          <input
+            type="text"
+            id="village"
+            placeholder="Village Name (Only Kankradi user)"
+          />
         </div>
         <div class="input-group">
           <input type="email" id="emailId" placeholder="Email ID" />
@@ -206,6 +214,9 @@
           <button onclick="showCalculator()">
             <i class="fas fa-calculator"></i> Calculator
           </button>
+          <button onclick="showBirthTimer()">
+            <i class="fas fa-birthday-cake"></i> Check Live Birth-Date
+          </button>
           <button onclick="showGames()">
             <i class="fas fa-gamepad"></i> Play Games
           </button>
@@ -237,12 +248,7 @@
           </button>
         </div>
         <!-- NEW GALLERY SECTION ADDED HERE -->
-        <div class="sidebar-section">
-          <div class="sidebar-section-title">Media</div>
-          <button onclick="showGallery()">
-            <i class="fas fa-images"></i> Image Gallery
-          </button>
-        </div>
+       
         <div class="sidebar-section">
           <div class="sidebar-section-title">Theme</div>
           <button onclick="setDark()">
@@ -252,9 +258,19 @@
             <i class="fas fa-sun"></i> Light Mode
           </button>
         </div>
+         <div class="sidebar-section">
+          <div class="sidebar-section-title">Media</div>
+          <button onclick="showGallery()">
+            <i class="fas fa-images"></i> Image Gallery
+          </button>
+        </div>
       </div>
       <div class="content" id="contentArea"></div>
     </div>
+
     <script src="script.js"></script>
+
   </body>
 </html>
+
+
