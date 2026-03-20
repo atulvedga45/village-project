@@ -5,326 +5,359 @@
         box-sizing: border-box;
       }
 
-      body {
-        margin: 0;
-        font-family: "Segoe UI", sans-serif;
-        background: linear-gradient(-45deg, #1abc9c, #3498db, #9b59b6, #e67e22);
-        background-size: 400% 400%;
-        animation: gradientBG 12s ease infinite;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        transition:
-          background 0.3s,
-          color 0.3s;
-      }
 
-      @keyframes gradientBG {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
+      /* ===== Notification (Glass + Gradient Style) ===== */
+.notification {
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 26px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  display: none;
+  z-index: 9999;
 
-      /* ===== Animation Classes ===== */
-      .fade-in {
-        animation: fadeIn 0.5s ease forwards;
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+  /* Glass effect */
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 
-      .slide-in {
-        animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: scale(0.9);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
+  animation: slideDown 0.4s ease;
+}
 
-      /* ===== Notification ===== */
-      .notification {
-        position: fixed;
-        top: 15px;
-        right: 15px;
-        background: #ff4757;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 50px;
-        font-size: 14px;
-        font-weight: bold;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        display: none;
-        z-index: 9999;
-        animation: fadeIn 0.5s ease;
-      }
+/* Notification Types (Gradient Colors) */
+.notification.success {
+  background: linear-gradient(135deg, #00c9a7, #2ecc71);
+}
 
-      .popup-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(5px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        animation: fadeIn 0.3s ease;
-      }
+.notification.error {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+}
 
-      .popup-box {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        text-align: center;
-        max-width: 350px;
-        width: 90%;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        animation: slideIn 0.4s ease;
-      }
+.notification.warning {
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  color: #333;
+}
 
-      .popup-box i {
-        font-size: 50px;
-        color: #3498db;
-        margin-left: 10px;
-        margin-bottom: 15px;
-      }
-      .popup-box h3 {
-        margin: 0 0 10px 0;
-        color: #2c3e50;
-      }
-      .popup-box p {
-        color: #666;
-        margin-bottom: 20px;
-        font-size: 14px;
-      }
+/* Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
 
-      .popup-btn {
-        padding: 12px 30px;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        font-weight: bold;
-        margin: 5px;
-        transition: all 0.3s;
-      }
+/* ===== Popup Overlay (Dark Glass) ===== */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 
-      .popup-btn.primary {
-        background: #2980b9;
-        color: white;
-      }
-      .popup-btn.primary:hover {
-        background: #3498db;
-        transform: translateY(-2px);
-      }
-      .popup-btn.secondary {
-        background: #ecf0f1;
-        color: #666;
-      }
-      .popup-btn.secondary:hover {
-        background: #d5dbdb;
-      }
-      .popup-btn.success {
-        background: #25d366;
-        color: white;
-      }
-      .popup-btn.success:hover {
-        background: #128c7e;
-      }
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
 
-      /* ===== Login Page ===== */
-      #loginPage {
-        width: 100%;
-        padding: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-      }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
 
-      .login-box {
-        background: rgba(255, 255, 255, 0.25);
-        backdrop-filter: blur(15px);
-        width: 100%;
-        max-width: 320px;
-        padding: 30px 20px;
-        border-radius: 20px;
-        text-align: center;
-        color: white;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        transition:
-          opacity 0.3s,
-          transform 0.3s;
-      }
-      .login-box.hidden {
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        transform: scale(0.9);
-      }
+/* ===== Popup Box (Glass Card) ===== */
+.popup-box {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 18px;
+  text-align: center;
+  max-width: 350px;
+  width: 90%;
 
-      .logo {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 15px;
-        border-radius: 50%;
-        background: white;
-        color: #3498db;
-        font-size: 28px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-      }
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  animation: popZoom 0.35s ease;
+}
 
-      .input-group {
-        position: relative;
-        margin: 15px 0;
-      }
-      .input-group input {
-        width: 100%;
-        padding: 12px 45px 12px 15px;
-        border-radius: 30px;
-        border: none;
-        outline: none;
-        font-size: 14px;
-        background: rgba(255, 255, 255, 0.9);
-        color: #000;
-        transition: all 0.3s;
-      }
-      .input-group input:focus {
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
-        transform: scale(1.02);
-      }
+/* Popup Animation */
+@keyframes popZoom {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-      .login-btn,
-      .refresh-btn,
-      .code-login-btn,
-      .otp-btn {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 30px;
-        margin-top: 10px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-      }
-      .login-btn {
-        background: #fff;
-        color: #3498db;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-      .login-btn:hover {
-        background: #3498db;
-        color: white;
-        transform: translateY(-2px);
-      }
-      .refresh-btn {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-      }
-      .refresh-btn:hover {
-        background: rgba(255, 255, 255, 0.493);
-        color: rgb(255, 255, 255);
-        border: 1px solid rgba(255, 255, 255, 0.568);
-      }
+/* Icon */
+.popup-box i {
+  font-size: 50px;
+  margin-bottom: 15px;
+  color: #6c5ce7;
+}
 
-      .code-login-btn {
-        background: transparent;
-        color: white;
-        border: 2px solid white;
-      }
-      .code-login-btn:hover {
-        background: white;
-        color: #3498db;
-      }
+/* Title */
+.popup-box h3 {
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
 
-      .otp-btn {
-        background-color: white;
-        color: #3498db;
-      }
-      .otp-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-        background-color: #3498db;
-        color: rgb(255, 255, 255);
-      }
-      .otp-btn:disabled {
-        background: #95a5a6;
-        cursor: not-allowed;
-        transform: none;
-      }
+/* Text */
+.popup-box p {
+  color: #636e72;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
 
-      .small-text {
-        font-size: 12px;
-        margin-top: 20px;
-        opacity: 0.8;
-      }
-      .small-text a {
-        color: #fff;
-        font-weight: bold;
-        text-decoration: underline;
-      }
+/* ===== Buttons (Gradient Modern) ===== */
+.popup-btn {
+  padding: 12px 26px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 5px;
+  transition: all 0.3s;
+}
 
-      /* ===== Code Login Styles ===== */
-      .code-input-group {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin: 25px 0;
-      }
-      .code-input {
-        width: 40px;
-        height: 50px;
-        text-align: center;
-        font-size: 22px;
-        font-weight: bold;
-        border-radius: 10px;
-        border: none;
-        background: rgba(255, 255, 255, 0.9);
-        color: #2c3e50;
-        outline: none;
-        transition: all 0.3s;
-        text-transform: uppercase;
-      }
-      .code-input:focus {
-        transform: scale(1.1);
-        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
-        background: #fff;
-      }
+/* Primary (Purple Gradient) */
+.popup-btn.primary {
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+  color: white;
+}
+.popup-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
+}
 
-      /* OTP Section initially hidden */
-      .otp-section {
-        display: none;
-        margin-top: 15px;
-        animation: fadeIn 0.5s ease;
-      }
+/* Secondary (Soft Glass) */
+.popup-btn.secondary {
+  background: rgba(0, 0, 0, 0.05);
+  color: #555;
+}
+.popup-btn.secondary:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Success (Green Gradient) */
+.popup-btn.success {
+  background: linear-gradient(135deg, #00b894, #55efc4);
+  color: white;
+}
+.popup-btn.success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 184, 148, 0.4);
+}
+
+  
+
+ /* ===== Body (White Theme) ===== */
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #f5f7fa; /* light clean background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #2c3e50;
+}
+
+/* ===== Animations ===== */
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease;
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== Login Page ===== */
+#loginPage {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== Login Box ===== */
+.login-box {
+  background: #ffffff;
+  width: 100%;
+  max-width: 340px;
+  padding: 30px 25px;
+  border-radius: 16px;
+  text-align: center;
+  color: #2c3e50;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eaeaea;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background: #3498db;
+  color: #fff;
+  font-size: 26px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Inputs ===== */
+.input-group {
+  margin: 15px 0;
+}
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #dcdcdc;
+  font-size: 14px;
+  background: #f9f9f9;
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  border-color: #3498db;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* ===== Buttons ===== */
+.login-btn,
+.refresh-btn,
+.code-login-btn,
+.otp-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+}
+
+/* Primary Button */
+.login-btn {
+  background: #3498db;
+  color: white;
+}
+.login-btn:hover {
+  background: #2980b9;
+}
+
+/* Secondary */
+.refresh-btn {
+  background: #ecf0f1;
+  color: #555;
+}
+.refresh-btn:hover {
+  background: #dcdde1;
+}
+
+/* Outline Button */
+.code-login-btn {
+  background: transparent;
+  border: 1px solid #3498db;
+  color: #3498db;
+}
+.code-login-btn:hover {
+  background: #3498db;
+  color: #fff;
+}
+
+/* OTP Button */
+.otp-btn {
+  background: #2ecc71;
+  color: white;
+}
+.otp-btn:hover {
+  background: #27ae60;
+}
+.otp-btn:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* ===== Small Text ===== */
+.small-text {
+  font-size: 12px;
+  margin-top: 15px;
+  color: #777;
+}
+.small-text a {
+  color: #3498db;
+  font-weight: bold;
+  text-decoration: none;
+}
+.small-text a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Code Input ===== */
+.code-input-group {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0;
+}
+.code-input {
+  width: 42px;
+  height: 48px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+}
+.code-input:focus {
+  border-color: #3498db;
+  background: #fff;
+}
+
+/* ===== OTP Section ===== */
+.otp-section {
+  display: none;
+  margin-top: 15px;
+}
+
+
 
       /* ===== MAIN PAGE ===== */
       #mainPage {
@@ -2316,23 +2349,34 @@
   50% { transform: translate(30px, 50px); }
 }
 
+
 .birth-container {
   position: relative;
   z-index: 1;
-  /* Changed from light transparent to dark semi-transparent black */
-  background: rgba(0, 0, 0, 0.75); 
+
+  /* Light glass background */
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
+
   padding: 40px;
   border-radius: 24px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); /* Adjusted shadow for dark bg */
   text-align: center;
   width: 100%;
   max-width: 480px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  /* Soft shadow */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+
+  /* Light border */
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
   animation: fadeInUpBirth 0.8s ease-out forwards;
-  color: white;
+
+  /* Text color */
+  color: #2c3e50;
 }
+
 
 
 @keyframes fadeInUpBirth {
@@ -2346,18 +2390,6 @@
   }
 }
 
-.birth-container h1 {
-  letter-spacing: 3px;
-  margin-bottom: 30px;
-  font-size: 1.6rem;
-  text-transform: uppercase;
-  background: linear-gradient(90deg, #ff00ff, #00ffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
-}
-
-
 
 .birth-container input[type="date"] {
   padding: 14px;
@@ -2369,7 +2401,7 @@
   font-size: 16px;
   /* Changed to a slightly lighter dark for contrast against the container */
   background: rgba(255, 255, 255, 0.1); 
-  color: #fff;
+  color: #000000;
   cursor: pointer;
   transition: all 0.3s ease;
 }
